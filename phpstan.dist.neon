@@ -1,0 +1,23 @@
+parameters:
+    level: 9
+
+    treatPhpDocTypesAsCertain: false
+
+    ignoreErrors:
+        - identifier: doctrine.columnType
+        - identifier: return.type
+        - identifier: missingType.iterableValue
+        - identifier: doctrine.associationType
+
+    paths:
+        - src
+        - tests
+
+    symfony:
+        containerXmlPath: var/cache/dev/App_KernelDevDebugContainer.xml
+
+    excludePaths:
+        - var/*
+        - vendor/*
+        - src/Kernel.php
+        - tests/bootstrap.php
