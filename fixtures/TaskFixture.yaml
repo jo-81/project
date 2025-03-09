@@ -1,0 +1,7 @@
+App\Entity\Task:
+  task_{1..20}:
+    name: <word(3, true)>
+    content: <text(400)>
+    position: <current()>
+    priority: <getPriority('low')>
+    section: "@section_<numberBetween(1, 10)>"

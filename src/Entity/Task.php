@@ -52,6 +52,10 @@ class Task
     #[ORM\ManyToMany(targetEntity: Label::class, mappedBy: 'tasks')]
     private Collection $labels;
 
+    #[ORM\ManyToOne(inversedBy: 'tasks')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Section $section = null;
+
     public function __construct()
     {
         $this->labels = new ArrayCollection();
@@ -62,6 +66,7 @@ class Task
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->archived = false;
+        $this->status = Status::TODO;
     }
 
     public function getId(): ?int
@@ -200,6 +205,18 @@ class Task
         if ($this->labels->removeElement($label)) {
             $label->removeTask($this);
         }
+
+        return $this;
+    }
+
+    public function getSection(): ?Section
+    {
+        return $this->section;
+    }
+
+    public function setSection(?Section $section): static
+    {
+        $this->section = $section;
 
         return $this;
     }

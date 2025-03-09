@@ -1,0 +1,5 @@
+App\Entity\Label:
+  label_{1..5}:
+    name: "<word()>"
+    color: "<hexColor()>"
+    project: "@project_1"
