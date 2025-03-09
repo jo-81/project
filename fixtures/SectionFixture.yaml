@@ -1,0 +1,6 @@
+App\Entity\Section:
+  section_{1..10}:
+    name: "<word(3, true)>"
+    description: "<text(200)>"
+    position: "<current()>"
+    project: "@project_1"

@@ -67,7 +67,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setValuesWhenCreate(): void
     {
         $this->createdAt = new \DateTimeImmutable();
-        $this->capability = Capability::VISITOR;
     }
 
     public function getId(): ?int

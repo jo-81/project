@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
@@ -20,6 +21,7 @@ class Project
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[Gedmo\Slug(fields: ['name'], unique: true)]
     #[ORM\Column(length: 255, unique: true)]
     private ?string $slug = null;
 

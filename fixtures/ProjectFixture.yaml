@@ -1,0 +1,15 @@
+App\Entity\Project:
+  project_{1..15}:
+    name: "<word(3, true)>"
+    description: "<text(200)>"
+    owner: "@user_1"
+
+  project_{16..25}:
+    name: "<word(3, true)>"
+    description: "<text(200)>"
+    owner: "@user_2"
+
+  project_{26..28}:
+    name: "<word(3, true)>"
+    description: "<text(200)>"
+    owner: "@user_3"
