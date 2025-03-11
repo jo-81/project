@@ -1,1 +1,44 @@
+@use 'sass:list';
+
+/* GENERAL */
+$border-radius: 0;
+
+/* TYPO */
+$font-family-base: "Poppins";
+
+/* FORM */
+$focus-ring-width: 0.125rem;
+
+$form-label-margin-bottom: 0.125rem;
+$form-label-font-size: 0.925rem;
+$form-label-font-weight: 600;
+
+/* COLOR */
+$primary: #593196;
+$secondary: #a991d4;
+$success: #13b955;
+$info: #009cdc;
+$warning: #efa31d;
+$danger: #fc3939;
+$light: #f9f8fc;
+$dark: #17141f;
+$body-color: #4f4f4f;
+$border-color: #ededed;
+
+/* NAVBAR */
+$navbar-padding-y: 1.5rem;
+
+/* SPACERS */
+@import "../../vendor/twbs/bootstrap/scss/functions";
+@import "../../vendor/twbs/bootstrap/scss/variables";
+
+// Ajouter des valeurs personnalisées
+$custom-spacers: (
+  6: $spacer * 4,
+  7: $spacer * 5,
+);
+
+// Fusionner avec $spacers
+$spacers: map-merge($spacers, $custom-spacers);
+
 @import '../../vendor/twbs/bootstrap/scss/bootstrap';
