@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Hautelook\AliceBundle\PhpUnit\ReloadDatabaseTrait;
+use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 
 class LoginControllerTest extends WebTestCase
 {
-    use ReloadDatabaseTrait;
+    use RefreshDatabaseTrait;
 
     private KernelBrowser $client;
 

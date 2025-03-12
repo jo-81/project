@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -15,7 +16,8 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USERNAME', fields: ['username'])]
-#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
+#[UniqueEntity(fields: ['username'], message: 'Vous ne pouvez pas utiliser ce pseudo.')]
+#[UniqueEntity(fields: ['email'], message: 'Vous ne pouvez pas utiliser cette adresse email.')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -23,6 +25,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\Regex('#^[A-Za-z]\S{3,16}$#', message: "Votre pseudo n'est pas au bon format.")]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $username = null;
 
@@ -38,6 +41,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    #[Assert\Email(
+        message: "Votre adresse email n'est pas au bon format.",
+        mode: 'html5'
+    )]
     #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;
 
@@ -62,6 +69,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private bool $isVerified = false;
 
+    #[Assert\Regex('#^(?=.*[A-Z])(?=.*\d).{8,}$#', message: "Votre mot de passe n'est pas au bon format.")]
+    private ?string $plainPassword = null;
+
     public function __construct()
     {
         $this->projects = new ArrayCollection();
@@ -72,6 +82,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setValuesWhenCreate(): void
     {
         $this->createdAt = new \DateTimeImmutable();
+        $this->capability = Capability::VISITOR;
+        $this->roles = ['ROLE_REGISTER'];
     }
 
     public function getId(): ?int
@@ -146,7 +158,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        $this->plainPassword = null;
     }
 
     public function getEmail(): ?string
@@ -253,6 +265,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): static
+    {
+        $this->plainPassword = $plainPassword;
 
         return $this;
     }
