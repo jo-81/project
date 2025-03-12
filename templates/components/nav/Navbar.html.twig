@@ -1,0 +1,56 @@
+<div{{ attributes }}>
+    <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+        <div class="container">
+            <button 
+                class="navbar-toggler" 
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" 
+                aria-expanded="false" 
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                    <twig:Nav:NavLink 
+                        label="Home" 
+                        path="{{ path('homepage') }}" 
+                        isActive="{{ this.getCurrentRoute == 'homepage' }}"
+                    />
+
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <twig:Nav:NavLink 
+                            label="Projets" 
+                            path="{{ path('project.list') }}" 
+                            isActive="{{ this.getCurrentRoute == 'project.list' }}"
+                        />
+
+                        <twig:Nav:NavLink 
+                            label="Profil" 
+                            path="{{ path('profile') }}" 
+                            isActive="{{ this.getCurrentRoute == 'profile' }}"
+                        />
+                    {% endif %}
+
+                    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+
+                        <twig:Nav:NavLink 
+                            label="Connexion" 
+                            path="{{ path('app_login') }}" 
+                            isActive="{{ this.getCurrentRoute == 'app_login' }}"
+                        />
+
+                        <twig:Nav:NavLink 
+                            label="Inscription" 
+                            path="{{ path('app_register') }}" 
+                            isActive="{{ this.getCurrentRoute == 'app_register' }}"
+                        />
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>

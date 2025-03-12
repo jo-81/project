@@ -1,0 +1,45 @@
+{% if pageCount > 1 %}
+<nav>
+    <ul class="pagination">
+        {% if previous is defined %}
+            <li class="page-item">
+                <button 
+                    class="page-link" 
+                    data-action="live#action" 
+                    data-live-action-param="prevPage">Précédent</button>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Précédent</span>
+            </li>
+        {% endif %}
+
+        {% for page in pagesInRange %}
+            {% if page != current %}
+                <li class="page-item">
+                    <button 
+                        class="page-link" 
+                        data-action="live#action" 
+                        data-live-page-param="{{ page }}"
+                        data-live-action-param="selectedPage">{{ page }}</button>
+                </li>
+            {% else %}
+                <li class="page-item active">
+                    <span class="page-link">{{ page }}</span>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if next is defined %}
+            <li class="page-item">
+                <button class="page-link" data-action="live#action" 
+                    data-live-action-param="nextPage">Suivant</button>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Suivant</span>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}

@@ -2,9 +2,8 @@
 
 namespace App\DataFixtures\Providers;
 
-use App\Enum\Capability;
 use App\Enum\Priority;
-use App\Enum\Status;
+use App\Enum\Capability;
 
 class EnumerationProvider
 {

@@ -1,0 +1,14 @@
+<div {{ attributes.defaults({class: 'mb-3'}) }}>
+
+    <div class="mb-3">
+        <label class="form-label text-uppercase" for="{{ name }}">{{ label }}</label>
+        <input 
+            type="{{ type }}" 
+            value="{{ value }}" 
+            name="{{ name }}" 
+            id="{{ name }}" 
+            class="form-control"
+            {{ this.listAttributes }}
+        >
+    </div>
+</div>

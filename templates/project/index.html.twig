@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes projets{% endblock %}
+
+{% block body %}
+<section>
+    <twig:HeaderPage title="Mes projets">
+        <twig:block name="body">
+            <p>Nombre de projet : {{ number_project }}</p>
+        </twig:block>
+
+        <twig:block name="footer">
+            <p><a class="btn btn-primary" href="#">Ajouter</a></p>
+        </twig:block>
+    </twig:HeaderPage>
+
+    <twig:Project:Lists />
+</section>
+{% endblock %}

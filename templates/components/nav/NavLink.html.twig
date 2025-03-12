@@ -1,0 +1,9 @@
+<div{{ attributes }}>
+    <li class="nav-item">
+        <a 
+            class="nav-link {% if isActive %}active"page"{% endif %}" 
+            {% if isActive %}aria-current="page"{% endif %} 
+            href="{{ path }}"
+        >{{ label }}</a>
+    </li>
+</div>

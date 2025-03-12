@@ -1,0 +1,50 @@
+<div{{ attributes.defaults({class: 'my-5'}) }}>
+    <section class="container">
+
+        <section class="mb-3 d-flex gap-2 w-50">
+            <div class="col">
+                <input type="search" data-model="query" class="form-control" placeholder="Rechercher un projet..." />
+            </div>
+            <div class="col">
+                <select class="form-select" data-model="archived">
+                    <option {% if archived == -1 %}selected{% endif %} value="-1">Afficher tous les projets</option>
+                    <option {% if archived == 0 %}selected{% endif %} value="0">Afficher les projets non archivés</option>
+                    <option {% if archived == 1 %}selected{% endif %} value="1">Afficher les projets archivés</option>
+                </select>
+            </div>
+        </section>
+        
+
+        <div class="row g-2" data-loading="addClass(opacity-50)">
+            {% for project in computed.projects %}
+                <twig:Project:Card project="{{ project }}" key="{{ project.id }}">
+
+                    {# <twig:block name="body">
+                        <h2 class="h6 d-flex justify-content-between align-items-center">
+                            <a href="{{ path('project.single', {id: project.id}) }}">{{ project.name }}</a>
+                            {% if project.archived %}
+                                <twig:ux:icon name="mdi:archive-outline" class="icon text-danger"/>
+                            {% endif %}
+                        </h2>
+                        <p>{{ project.description }}</p>
+                    </twig:block>
+
+                    <twig:block name="footer">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="small">{{ project.createdAt|date('m/d/Y') }}</p>
+                        </div>
+                    </twig:block> #}
+
+                </twig:Project:Card>
+                {% else %}
+                <div class="mb-2">
+                    <p>Aucun projet trouvé</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="mt-3">
+            {{ knp_pagination_render(computed.projects) }}
+        </div>
+    </section>
+</div>

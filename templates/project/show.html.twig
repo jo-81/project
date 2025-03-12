@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ project.name }}{% endblock %}
+
+{% block body %}
+<section>
+
+    <twig:HeaderPage title="{{ project.name }}" />
+
+    <section class="container">
+        <div class="row g-2">
+            {% for section in project.sections %}
+            <div class="col-12">
+                <article class="card card-body">
+                    <header>
+                        <h3 class="h6">{{ section.name }}</h3>
+                    </header>
+
+                    <div class="row g-2">
+                        {% for task in section.tasks %}
+                        <div class="col-12">
+                            <article class="card card-body">
+                                <h4 class="h6">{{ task.name }}</h4>
+                                <p>{{ task.content }}</p>
+                            </article>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </article>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</section>
+{% endblock %}
