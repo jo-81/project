@@ -4,9 +4,16 @@
 
 {% block body %}
 <section>
+    <twig:HeaderPage title="Mes projets">
+        <twig:block name="body">
+            <p>Nombre de projet : {{ number_project }}</p>
+        </twig:block>
 
-    <twig:HeaderPage title="Mes projets"></twig:HeaderPage>
+        <twig:block name="footer">
+            <p><a class="btn btn-primary" href="#">Ajouter</a></p>
+        </twig:block>
+    </twig:HeaderPage>
 
-    <twig:ListProjects />
+    <twig:Project:Lists />
 </section>
 {% endblock %}

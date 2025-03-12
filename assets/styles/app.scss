@@ -5,6 +5,11 @@ $border-radius: 0;
 
 /* TYPO */
 $font-family-base: "Poppins";
+$paragraph-margin-bottom: 0.25rem;
+
+p:last-of-type {
+  margin-bottom: 0;
+}
 
 /* FORM */
 $focus-ring-width: 0.125rem;
@@ -28,6 +33,11 @@ $border-color: #ededed;
 /* NAVBAR */
 $navbar-padding-y: 1.5rem;
 
+/* CARD */
+$card-spacer-y: 1.75rem;
+$card-spacer-x: 1.75rem;
+$card-border-color: $border-color;
+
 /* SPACERS */
 @import "../../vendor/twbs/bootstrap/scss/functions";
 @import "../../vendor/twbs/bootstrap/scss/variables";
@@ -42,3 +52,8 @@ $custom-spacers: (
 $spacers: map-merge($spacers, $custom-spacers);
 
 @import '../../vendor/twbs/bootstrap/scss/bootstrap';
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
