@@ -38,6 +38,17 @@ $card-spacer-y: 1.75rem;
 $card-spacer-x: 1.75rem;
 $card-border-color: $border-color;
 
+/* TOAST */
+$toast-border-width: 0;
+
+/* TURBO */
+.turbo-progress-bar {
+    height: 5px;
+    background-color: $primary;
+    box-shadow: 0 0 10px rgba($primary, 0.7);
+    transition: width 0.3s ease; /* Animation fluide */
+}
+
 /* SPACERS */
 @import "../../vendor/twbs/bootstrap/scss/functions";
 @import "../../vendor/twbs/bootstrap/scss/variables";

@@ -4,7 +4,8 @@ namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-final class ProfileControllerTest extends WebTestCase{
+final class ProfileControllerTest extends WebTestCase
+{
     public function testIndex(): void
     {
         $client = static::createClient();

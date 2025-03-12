@@ -7,20 +7,20 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 #[AsTwigComponent]
 final class TextType
 {
-    public string $type = "text";
+    public string $type = 'text';
 
-    public string $label = "";
+    public string $label = '';
 
-    public string $name = "";
+    public string $name = '';
 
-    public mixed $value = "";
+    public mixed $value = '';
 
     public array $options = [];
 
     public function listAttributes(): string
     {
-        $attribute = "";
-        foreach($this->options as $key => $value) {
+        $attribute = '';
+        foreach ($this->options as $key => $value) {
             if (is_bool($value) && $value) {
                 $attribute .= "$key ";
             } else {

@@ -25,3 +25,8 @@ services:
 
     App\DataFixtures\Providers\EnumerationProvider:
         tags: [ { name: nelmio_alice.faker.provider } ]
+
+    App\EventListener\LoginFlashSubscriber:
+        arguments: ['@request_stack']
+        tags:
+            - { name: 'kernel.event_subscriber' }
