@@ -24,17 +24,17 @@ class ProjectRepository extends ServiceEntityRepository
             ->setParameter('owner', $owner)
         ;
 
-        if ($archived != -1) {
+        if (-1 != $archived) {
             $qb
                 ->andWhere('p.archived = :archived')
                 ->setParameter('archived', $archived)
             ;
         }
 
-        if (! empty($query)) {
+        if (!empty($query)) {
             $qb
                 ->andWhere('p.name LIKE :query')
-                ->setParameter('query', '%' . $query . '%')
+                ->setParameter('query', '%'.$query.'%')
             ;
         }
 

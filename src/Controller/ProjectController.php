@@ -13,13 +13,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class ProjectController extends AbstractController
 {
     public function __construct(private Security $security, private ProjectRepository $projectRepository)
-    {}
+    {
+    }
 
     #[Route('/projects', name: 'project.list', methods: ['GET'])]
     public function index(): Response
     {
         /** @var User */
         $user = $this->security->getUser();
+
         return $this->render('project/index.html.twig', [
             'number_project' => 15,
         ]);

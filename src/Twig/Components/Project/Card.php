@@ -15,13 +15,14 @@ final class Card
     public ?Project $project = null;
 
     public function __construct(private TaskRepository $taskRepository)
-    {}
+    {
+    }
 
     public function getNumberTask(): int
     {
         $sections = $this->project->getSections();
         $numberTask = 0;
-        foreach($sections as $section) {
+        foreach ($sections as $section) {
             $numberTask += count($section->getTasks());
         }
 
@@ -30,12 +31,5 @@ final class Card
 
     public function getNumberTaskCompleted()
     {
-        $sections = $this->project->getSections();
-        $tasks = 0;
-        foreach($sections as $section) {
-            dd($this->taskRepository->findInformationsTasksBySection($section));
-        }
-
-        dd($tasks);
     }
 }

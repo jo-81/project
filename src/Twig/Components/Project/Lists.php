@@ -28,7 +28,7 @@ final class Lists
     public function __construct(
         private Security $security,
         private ProjectRepository $projectRepository,
-        private PaginatorInterface $paginator
+        private PaginatorInterface $paginator,
     ) {
     }
 
@@ -43,7 +43,6 @@ final class Lists
                 $this->page,
                 4
             );
-
         } catch (\Exception $e) {
             return [];
         }

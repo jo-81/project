@@ -24,15 +24,15 @@ final class UserVoter extends Voter
         if (!$user instanceof UserInterface) {
             return false;
         }
-        
+
         switch ($attribute) {
             case self::CAN:
-
-                if ($user->getCapability() == Capability::VIP) {
+                if (Capability::VIP == $user->getCapability()) {
                     return true;
                 }
 
                 return false;
+
                 break;
         }
 

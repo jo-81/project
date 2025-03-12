@@ -2,82 +2,81 @@
 
 namespace App\Tests;
 
-use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Hautelook\AliceBundle\PhpUnit\ReloadDatabaseTrait;
 
 class LoginControllerTest extends WebTestCase
 {
+    use ReloadDatabaseTrait;
+
     private KernelBrowser $client;
 
     protected function setUp(): void
     {
         $this->client = static::createClient();
-        $container = static::getContainer();
-        $em = $container->get('doctrine.orm.entity_manager');
-        $userRepository = $em->getRepository(User::class);
-
-        // Remove any existing users from the test database
-        foreach ($userRepository->findAll() as $user) {
-            $em->remove($user);
-        }
-
-        $em->flush();
-
-        // Create a User fixture
-        /** @var UserPasswordHasherInterface $passwordHasher */
-        $passwordHasher = $container->get('security.user_password_hasher');
-
-        $user = (new User())->setEmail('email@example.com');
-        $user->setPassword($passwordHasher->hashPassword($user, 'password'));
-
-        $em->persist($user);
-        $em->flush();
     }
 
-    public function testLogin(): void
+    /**
+     * testRouteLoginExist.
+     */
+    public function testRouteLoginExist(): void
     {
-        // Denied - Can't login with invalid email address.
-        $this->client->request('GET', '/login');
-        self::assertResponseIsSuccessful();
+        $this->client->request('GET', '/connexion');
 
-        $this->client->submitForm('Sign in', [
-            '_username' => 'doesNotExist@example.com',
-            '_password' => 'password',
+        self::assertResponseIsSuccessful();
+    }
+
+    /**
+     * testDeniedLoginWithBadUsername.
+     */
+    public function testDeniedLoginWithBadUsername(): void
+    {
+        $this->client->request('GET', '/connexion');
+        $this->client->submitForm('Connexion', [
+            '_username' => 'admin789',
+            '_password' => '0',
         ]);
 
-        self::assertResponseRedirects('/login');
+        self::assertResponseRedirects('/connexion');
         $this->client->followRedirect();
 
-        // Ensure we do not reveal if the user exists or not.
-        self::assertSelectorTextContains('.alert-danger', 'Invalid credentials.');
+        self::assertSelectorTextContains('.alert-danger', 'Identifiants invalides.');
+    }
 
-        // Denied - Can't login with invalid password.
-        $this->client->request('GET', '/login');
-        self::assertResponseIsSuccessful();
-
-        $this->client->submitForm('Sign in', [
-            '_username' => 'email@example.com',
-            '_password' => 'bad-password',
+    /**
+     * testDeniedLoginWithBadPassword.
+     */
+    public function testDeniedLoginWithBadPassword(): void
+    {
+        $this->client->request('GET', '/connexion');
+        $this->client->submitForm('Connexion', [
+            '_username' => 'admin',
+            '_password' => '1234',
         ]);
 
-        self::assertResponseRedirects('/login');
+        self::assertResponseRedirects('/connexion');
         $this->client->followRedirect();
 
-        // Ensure we do not reveal the user exists but the password is wrong.
-        self::assertSelectorTextContains('.alert-danger', 'Invalid credentials.');
+        self::assertSelectorTextContains('.alert-danger', 'Identifiants invalides.');
+    }
 
-        // Success - Login with valid credentials is allowed.
-        $this->client->submitForm('Sign in', [
-            '_username' => 'email@example.com',
-            '_password' => 'password',
+    /**
+     * testSuccessLogin.
+     */
+    public function testSuccessLogin(): void
+    {
+        $this->client->request('GET', '/connexion');
+        $this->client->submitForm('Connexion', [
+            '_username' => 'admin',
+            '_password' => '0',
         ]);
 
-        self::assertResponseRedirects('/');
+        self::assertResponseRedirects('/projects');
         $this->client->followRedirect();
 
         self::assertSelectorNotExists('.alert-danger');
+        self::assertSelectorTextContains('.toast.text-bg-success', 'Bienvenue admin, vous êtes connecté !');
         self::assertResponseIsSuccessful();
     }
 }

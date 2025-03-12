@@ -24,8 +24,17 @@
             <twig:Nav:Navbar />
         {% endif %}
 
-        <main>
+        <main class="position-relative">
             {% block body %}{% endblock %}
+
+
+            {% for type, messages in app.flashes %}
+                <div class="toast-container p-3 top-0 end-0">
+                    {% for message in messages %}
+                        <twig:Notification type="{{ type }}" message="{{ message }}" />
+                    {% endfor %}
+                </div>
+            {% endfor %}
         </main>
     </body>
 </html>

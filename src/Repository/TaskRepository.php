@@ -3,9 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Task;
+use App\Enum\Status;
 use App\Entity\Project;
 use App\Entity\Section;
-use App\Enum\Status;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
@@ -18,16 +18,16 @@ class TaskRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Task::class);
     }
-    
+
     /**
-     * findInformationsTasksBySection
-     * 
+     * findInformationsTasksBySection.
+     *
      * [
      *  'numberTasks' => 5,
      *  'numberTasksDone => 3,
      * ]
      *
-     * @param  Project $section
+     * @param Project $section
      */
     public function findInformationsTasksBySection(Section $section)
     {
