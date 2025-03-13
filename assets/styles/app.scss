@@ -41,6 +41,9 @@ $card-border-color: $border-color;
 /* TOAST */
 $toast-border-width: 0;
 
+/* LIST */
+$list-group-border-width: 0;
+
 /* TURBO */
 .turbo-progress-bar {
     height: 5px;
@@ -65,6 +68,6 @@ $spacers: map-merge($spacers, $custom-spacers);
 @import '../../vendor/twbs/bootstrap/scss/bootstrap';
 
 .icon {
-  width: 24px;
-  height: 24px;
+  width: 36px;
+  height: 36px;
 }

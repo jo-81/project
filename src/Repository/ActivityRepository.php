@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\Activity;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -16,28 +17,18 @@ class ActivityRepository extends ServiceEntityRepository
         parent::__construct($registry, Activity::class);
     }
 
-    //    /**
-    //     * @return Activity[] Returns an array of Activity objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('a.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findActivitiesByUser(User $user, ?string $entityName = null)
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->andWhere('a.owner = :user')
+            ->setParameter('user', $user)
+            ->orderBy('a.createdAt', 'ASC')
+        ;
 
-    //    public function findOneBySomeField($value): ?Activity
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        if (! is_null($entityName)) {
+            $qb->andWhere('a.entityName = :entityName')->setParameter('entityName', $entityName);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }
