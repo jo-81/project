@@ -1,16 +1,69 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfileController!{% endblock %}
+{% block title %}Mon profil{% endblock %}
 
 {% block body %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<section>
+    <twig:HeaderPage title="Mon profil">
+        <twig:block name="body">
+            <p>{{ user_capability(user.capability) }}</p>
+        </twig:block>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>E:/1 - Objectifs/5 - Projets/1 - Todolist/app/project/src/Controller/ProfileController.php</code></li>
-        <li>Your template at <code>E:/1 - Objectifs/5 - Projets/1 - Todolist/app/project/templates/profile/index.html.twig</code></li>
-    </ul>
-</div>
+        <twig:block name="footer">
+            <p><a class="btn btn-outline-primary" href="{{ path('app_logout') }}">Déconnexion</a></p>
+        </twig:block>
+    </twig:HeaderPage>
+
+    <section class="container my-5">
+        <div class="row g-3">
+            <div class="col-12 col-lg">
+                <article class="card card-body">
+                    <h2 class="mb-3 h5">
+                        <twig:ux:icon name="tabler:user" class="icon bg-primary bg-opacity-10 p-2 text-primary rounded-circle"/>
+                        <span>Informations</span>
+                    </h2>
+                    <ul class="list-group border-0">
+                        <li class="list-group-item">
+                            <div class="d-flex flex-wrap">
+                                <span class="fw-bold col-12 col-sm">Inscription</span>
+                                <span class="col-12 col-sm">{{ user.createdAt|date('d/m/Y') }}</span>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="d-flex flex-wrap">
+                                <span class="fw-bold col-12 col-sm">Pseudo</span>
+                                <span class="col-12 col-sm">{{ user.username }}</span>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="d-flex flex-wrap">
+                                <span class="fw-bold col-12 col-sm">Adresse email</span>
+                                <span class="col-12 col-sm">{{ user.email }}</span>
+                            </div>
+                        <li class="list-group-item">
+                            <div class="d-flex flex-wrap">
+                                <span class="fw-bold col-12 col-sm">Nombre de projets</span>
+                                <span class="col-12 col-sm"><a href="{{ path('project.list') }}">{{ user.projects|length }}</a></span>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <p class="mt-3 ms-3">
+                        <a href="#" class="btn btn-primary">Modifier</a>
+                    </p>
+                </article>
+            </div>
+
+            <div class="col-12 col-lg">
+                <article class="card card-body">
+                    <h2 class="mb-3 h5">
+                        <twig:ux:icon name="tabler:activity" class="icon bg-primary bg-opacity-10 p-2 text-primary rounded-circle"/> <span>Activités</span>
+                    </h2>
+                    <p>Aucune activité d'enregistré</p>
+                </article>
+            </div>
+        </div>
+    </section>
+</section>
 {% endblock %}

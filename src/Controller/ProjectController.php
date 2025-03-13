@@ -23,7 +23,7 @@ final class ProjectController extends AbstractController
         $user = $this->security->getUser();
 
         return $this->render('project/index.html.twig', [
-            'number_project' => 15,
+            'number_project' => count($user->getProjects()),
         ]);
     }
 

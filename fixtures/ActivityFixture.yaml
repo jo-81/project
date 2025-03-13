@@ -3,4 +3,5 @@ App\Entity\Activity:
     owner: "@user_1"
     message: "<text(20)>"
     level: "<randomElement(['ERROR', 'NOTICE', 'INFO', 'DEBUG'])>"
-    context: "<paragraphs()>" 
+    context: "<paragraphs()>"
+    entityName: "<randomElement(['user', 'project', 'task'])>"

@@ -30,6 +30,9 @@ class Activity
     #[ORM\JoinColumn(nullable: false)]
     private ?User $owner = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $entityName = null;
+
     #[ORM\PrePersist]
     public function setValuesWhenCreate(): void
     {
@@ -97,6 +100,18 @@ class Activity
     public function setOwner(?User $owner): static
     {
         $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function getEntityName(): ?string
+    {
+        return $this->entityName;
+    }
+
+    public function setEntityName(string $entityName): static
+    {
+        $this->entityName = $entityName;
 
         return $this;
     }
