@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier mon profil{% endblock %}
+
+{% block body %}
+<section>
+    <twig:HeaderPage title="Modifier mon profil" />
+
+    <section class="container my-5">
+        <div class="row g-3">
+            <div class="col-12 col-lg">
+                <turbo-frame id="user_edit">
+                    <article class="card card-body">
+                        <h2 class="mb-3 h5">
+                            <twig:ux:icon name="tabler:user-edit" class="icon bg-primary bg-opacity-10 p-2 text-primary rounded-circle" />
+                            <span>Informations</span>
+                        </h2>
+
+                        {% include "partials/_alert.html.twig" %}
+                    
+                        <div>
+                            {{ form_start(form) }}
+                    
+                            {{ form_row(form.email) }}
+                    
+                            <div>
+                                <button class="btn btn-primary" type="submit">Modifier</button>
+                            </div>
+                    
+                            {{ form_end(form) }}
+                        </div>
+                    </article>
+                </turbo-frame>
+            </div>
+    
+            <div class="col-12 col-lg">
+                <article class="card card-body">
+                    <h2 class="mb-3 h5">
+                        <twig:ux:icon name="tabler:activity"
+                            class="icon bg-primary bg-opacity-10 p-2 text-primary rounded-circle" /> <span>Activités</span>
+                    </h2>
+                    <p>Aucune activité d'enregistré</p>
+                </article>
+            </div>
+        </div>
+    </section>
+</section>
+{% endblock %}
