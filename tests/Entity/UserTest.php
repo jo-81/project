@@ -4,12 +4,14 @@ namespace App\Tests\Entity;
 
 use App\Entity\User;
 use App\Tests\Traits\ValidatorTrait;
+use Hautelook\AliceBundle\PhpUnit\ReloadDatabaseTrait;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserTest extends KernelTestCase
 {
     use ValidatorTrait;
+    use ReloadDatabaseTrait;
 
     private User $user;
 

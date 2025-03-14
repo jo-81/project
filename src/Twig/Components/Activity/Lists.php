@@ -5,9 +5,9 @@ namespace App\Twig\Components\Activity;
 use App\Entity\User;
 use App\Repository\ActivityRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
-use Symfony\UX\LiveComponent\Attribute\LiveProp;
 
 #[AsLiveComponent]
 final class Lists
@@ -23,9 +23,9 @@ final class Lists
 
     public function __construct(
         private ActivityRepository $activityRepository,
-        private PaginatorInterface $paginator
-    )
-    {}
+        private PaginatorInterface $paginator,
+    ) {
+    }
 
     public function getActivities()
     {

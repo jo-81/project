@@ -15,11 +15,11 @@
                             <twig:ux:icon name="tabler:user-edit" class="icon bg-primary bg-opacity-10 p-2 text-primary rounded-circle" />
                             <span>Informations</span>
                         </h2>
+
+                        {% include "partials/_alert.html.twig" %}
                     
                         <div>
                             {{ form_start(form) }}
-                    
-                            {{ form_row(form.username) }}
                     
                             {{ form_row(form.email) }}
                     

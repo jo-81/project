@@ -25,7 +25,7 @@ class ActivityRepository extends ServiceEntityRepository
             ->orderBy('a.createdAt', 'ASC')
         ;
 
-        if (! is_null($entityName)) {
+        if (!is_null($entityName)) {
             $qb->andWhere('a.entityName = :entityName')->setParameter('entityName', $entityName);
         }
 

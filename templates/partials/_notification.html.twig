@@ -1,0 +1,9 @@
+{% for type, messages in app.flashes %}
+    <turbo-frame id="flash_messages">
+        <div class="toast-container p-3 top-0 end-0">
+            {% for message in messages %}
+                <twig:Notification type="{{ type }}" message="{{ message }}" />
+            {% endfor %}
+        </div>
+    </turbo-frame>
+{% endfor %}

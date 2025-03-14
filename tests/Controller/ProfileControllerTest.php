@@ -3,9 +3,9 @@
 namespace App\Tests\Controller;
 
 use App\Repository\UserRepository;
-use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 
 class ProfileControllerTest extends WebTestCase
 {
@@ -17,13 +17,11 @@ class ProfileControllerTest extends WebTestCase
     {
         $this->client = static::createClient();
     }
-        
+
     /**
-     * testRouteProfileExistWhenUserLogged
-     * 
-     * @dataProvider getDataRouteProfile
+     * testRouteProfileExistWhenUserLogged.
      *
-     * @return void
+     * @dataProvider getDataRouteProfile
      */
     public function testRouteProfileExistWhenUserLogged(string $path): void
     {
@@ -37,11 +35,9 @@ class ProfileControllerTest extends WebTestCase
     }
 
     /**
-     * testRouteProfileExistWhenUserNotLogged
-     * 
+     * testRouteProfileExistWhenUserNotLogged.
+     *
      * @dataProvider getDataRouteProfile
-     * 
-     * @return void
      */
     public function testRouteProfileExistWhenUserNotLogged(string $path): void
     {
@@ -50,11 +46,9 @@ class ProfileControllerTest extends WebTestCase
         self::assertResponseStatusCodeSame(302);
         self::assertResponseRedirects('/connexion');
     }
-    
+
     /**
-     * getDataRouteProfile
-     *
-     * @return array
+     * getDataRouteProfile.
      */
     public static function getDataRouteProfile(): array
     {
@@ -64,6 +58,9 @@ class ProfileControllerTest extends WebTestCase
         ];
     }
 
+    /**
+     * testEditProfile.
+     */
     public function testEditProfile(): void
     {
         $userRepository = static::getContainer()->get(UserRepository::class);
@@ -72,14 +69,12 @@ class ProfileControllerTest extends WebTestCase
 
         $this->client->request('GET', '/profile/edit');
         $this->client->submitForm('Modifier', [
-            'user_edit[username]' => 'admin1',
             'user_edit[email]' => 'admin1@domaine.com',
         ]);
 
-        $userEdit = $userRepository->findOneByUsername('admin1');
+        $userEdit = $userRepository->findOneByUsername('admin');
 
         self::assertResponseRedirects('/profile');
-        self::assertEquals("admin1", $userEdit->getUsername());
-        self::assertEquals("admin1@domaine.com", $userEdit->getEmail());
+        self::assertEquals('admin1@domaine.com', $userEdit->getEmail());
     }
 }
