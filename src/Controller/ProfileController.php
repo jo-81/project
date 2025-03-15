@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\UserEditType;
 use App\Service\UserService;
+use App\Form\UserEditPasswordType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\Exception\PersisterException;
@@ -43,13 +44,41 @@ final class ProfileController extends AbstractController
 
                 return $this->redirectToRoute('profile');
             } catch (PersisterException $th) {
-                $this->addFlash('danger', 'En problème est survenue lors de la modification de votre profil.');
+                $this->addFlash('danger', 'Un problème est survenue lors de la modification de votre profil.');
 
                 return $this->redirectToRoute('profile.edit');
             }
         }
 
         return $this->render('profile/edit.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/profile/edit-password', name: 'profile.edit.password', methods: ['GET', 'POST'])]
+    public function editPassword(Request $request)
+    {
+        $user = $this->security->getUser();
+        $form = $this->createForm(UserEditPasswordType::class, $user, [
+            'action' => $this->generateUrl('profile.edit.password'),
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $user = $form->getData();
+                $this->userService->updatePassword($user);
+                $this->addFlash('success', 'Votre mot de passe a bien été modifié.');
+
+                return $this->redirectToRoute('profile');
+            } catch (PersisterException $th) {
+                $this->addFlash('danger', 'Un problème est survenue lors de la modification de votre mot de passe.');
+
+                return $this->redirectToRoute('profile.edit.password');
+            }
+        }
+
+        return $this->render('profile/edit-password.html.twig', [
             'form' => $form,
         ]);
     }
