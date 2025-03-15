@@ -55,6 +55,7 @@ class ProfileControllerTest extends WebTestCase
         return [
             ['/profile'],
             ['/profile/edit'],
+            ['/profile/edit-password'],
         ];
     }
 
@@ -76,5 +77,20 @@ class ProfileControllerTest extends WebTestCase
 
         self::assertResponseRedirects('/profile');
         self::assertEquals('admin1@domaine.com', $userEdit->getEmail());
+    }
+
+    public function testEditPasswordProfile(): void
+    {
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOneByUsername('admin');
+        $this->client->loginUser($testUser);
+
+        $this->client->request('GET', '/profile/edit-password');
+        $this->client->submitForm('Modifier', [
+            'user_edit_password[plainPassword][first]' => 'Azerty1234',
+            'user_edit_password[plainPassword][second]' => 'Azerty1234',
+        ]);
+
+        self::assertResponseRedirects('/profile');
     }
 }
