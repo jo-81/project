@@ -30,4 +30,10 @@ class UserService
 
         $this->update($user);
     }
+
+    public function remove(User $user): void
+    {
+        $this->em->remove($user);
+        $this->em->flush();
+    }
 }

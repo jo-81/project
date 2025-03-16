@@ -2,20 +2,48 @@
 
 namespace App\Tests\Controller;
 
+use App\Service\UserService;
 use App\Repository\UserRepository;
+use App\Tests\Traits\UserLoginTrait;
+use App\Controller\ProfileController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class ProfileControllerTest extends WebTestCase
 {
     use RefreshDatabaseTrait;
+    use UserLoginTrait;
 
     private KernelBrowser $client;
+
+    private $tokenStorage;
+    private $userService;
+    private $controller;
 
     protected function setUp(): void
     {
         $this->client = static::createClient();
+        $this->tokenStorage = new TokenStorage();
+    }
+
+    private function createMockContainer()
+    {
+        $container = $this->createMock(\Symfony\Component\DependencyInjection\ContainerInterface::class);
+        $container->method('get')->willReturnCallback(function ($service) {
+            if ($service === 'security.token_storage') {
+                return $this->tokenStorage;
+            }
+            return null;
+        });
+        return $container;
     }
 
     /**
@@ -90,6 +118,26 @@ class ProfileControllerTest extends WebTestCase
             'user_edit_password[plainPassword][first]' => 'Azerty1234',
             'user_edit_password[plainPassword][second]' => 'Azerty1234',
         ]);
+
+        self::assertResponseRedirects('/profile');
+    }
+
+    /**
+     * testDeleteProfileWhenUserNotLogged.
+     */
+    public function testDeleteProfileWhenUserNotLogged(): void
+    {
+        $this->client->request('DELETE', '/profile/remove');
+
+        self::assertResponseStatusCodeSame(302);
+        self::assertResponseRedirects('/connexion');
+    }
+
+    public function testRemoveWithInvalidCsrfToken(): void
+    {
+        $user = $this->connexion(['username' => 'admin']);
+        $this->client->loginUser($user);
+        $this->client->request('DELETE', '/profile/remove');
 
         self::assertResponseRedirects('/profile');
     }

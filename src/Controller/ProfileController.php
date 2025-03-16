@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Form\UserEditType;
 use App\Service\UserService;
 use App\Form\UserEditPasswordType;
-use Symfony\Bundle\SecurityBundle\Security;
+use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\Exception\PersisterException;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class ProfileController extends AbstractController
 {
-    public function __construct(private Security $security, private UserService $userService)
+    public function __construct(private UserService $userService)
     {
     }
 
@@ -22,15 +22,14 @@ final class ProfileController extends AbstractController
     public function index(): Response
     {
         return $this->render('profile/index.html.twig', [
-            'user' => $this->security->getUser(),
+            'user' => $this->getUser(),
         ]);
     }
 
     #[Route('/profile/edit', name: 'profile.edit', methods: ['GET', 'POST'])]
     public function edit(Request $request): Response
     {
-        $user = $this->security->getUser();
-
+        $user = $this->getUser();
         $form = $this->createForm(UserEditType::class, $user, [
             'action' => $this->generateUrl('profile.edit'),
         ]);
@@ -58,7 +57,7 @@ final class ProfileController extends AbstractController
     #[Route('/profile/edit-password', name: 'profile.edit.password', methods: ['GET', 'POST'])]
     public function editPassword(Request $request)
     {
-        $user = $this->security->getUser();
+        $user = $this->getUser();
         $form = $this->createForm(UserEditPasswordType::class, $user, [
             'action' => $this->generateUrl('profile.edit.password'),
         ]);
@@ -81,5 +80,36 @@ final class ProfileController extends AbstractController
         return $this->render('profile/edit-password.html.twig', [
             'form' => $form,
         ]);
+    }
+
+    #[Route('/profile/remove', name: 'profile.remove', methods: ['DELETE'])]
+    public function remove(Request $request): Response
+    {
+        $user = $this->getUser();
+        if (! $user) {
+            $this->addFlash('danger', 'Authentification requise');
+            return $this->redirectToRoute('login');
+        }
+
+        if (! $this->isCsrfTokenValid('remove-user', $request->request->get('_token'))) {
+            $this->addFlash('danger', 'Jeton CSRF invalide');
+            return $this->redirectToRoute('profile');
+        }
+
+        try {
+            $this->userService->remove($user);
+            $this->container->get('security.token_storage')->setToken(null);
+            $request->getSession()->invalidate();
+
+            $this->addFlash('success', 'Compte supprimé avec succès');
+            return $this->redirectToRoute('homepage');
+            
+        } catch (EntityNotFoundException $e) {
+            $this->addFlash('danger', 'Utilisateur introuvable');
+        } catch (\Exception $e) {
+            $this->addFlash('danger', 'Erreur technique : ' . $e->getMessage());
+        }
+
+        return $this->redirectToRoute('profile');
     }
 }
