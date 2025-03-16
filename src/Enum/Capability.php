@@ -16,4 +16,13 @@ enum Capability: string
             self::VISITOR => 5,
         };
     }
+
+    public function getIcon(): string
+    {
+        return match ($this) {
+            self::VIP => 'tabler:vip',
+            self::PREMIUM => 'tabler:currency-dollar',
+            self::VISITOR => 'tabler:vip-off',
+        };
+    }
 }

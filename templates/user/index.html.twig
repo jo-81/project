@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block body %}
+<section>
+    <twig:HeaderPage title="Liste des utilisateurs">
+    </twig:HeaderPage>
+
+    <section class="container my-5">
+        <div class="row g-3">
+            <div class="col-12 col-lg">
+                {# <turbo-frame id="user_list"> #}
+                    <article class="card card-body">
+                        <twig:UserList />
+                    </article>
+                {# </turbo-frame> #}
+            </div>
+    
+            <div class="col-12 col-lg">
+                <article class="card card-body">
+                    <h2 class="mb-3 h5">
+                        <twig:ux:icon name="tabler:activity"
+                            class="icon bg-primary bg-opacity-10 p-2 text-primary rounded-circle" /> <span>Activités</span>
+                    </h2>
+                    <p>Aucune activité d'enregistré</p>
+                </article>
+            </div>
+        </div>
+    </section>
+</section>
+{% endblock %}

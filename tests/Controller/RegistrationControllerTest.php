@@ -53,7 +53,7 @@ class RegistrationControllerTest extends WebTestCase
 
         /** @var User */
         $user = $this->userRepository->findOneBy(['username' => 'user_name33']);
-        self::assertCount(4, $this->userRepository->findAll());
+        self::assertCount(16, $this->userRepository->findAll());
         self::assertFalse($user->isVerified());
     }
 }

@@ -1,0 +1,45 @@
+<div{{ attributes }}>
+
+    <h2 class="mb-3 h5">
+        <twig:ux:icon name="tabler:users" class="icon bg-primary bg-opacity-10 p-2 text-primary rounded-circle" />
+        <span>Utilisateurs ( {{ computed.users.getTotalItemCount }} )</span>
+    </h2>
+
+    <section class="mb-3 d-flex flex-wrap gap-2">
+        <div class="col-12 col-sm col-lg-12 col-xl">
+            <input type="search" data-model="query" class="form-control" placeholder="Rechercher un utilisateur..." />
+        </div>
+        <div class="col-12 col-sm col-lg-12 col-xl">
+            <select class="form-select" data-model="capability">
+                <option value="">Choisir une capabilité</option>
+                <option {% if capability == "vip" %}selected{% endif %} value="vip">VIP</option>
+                <option {% if capability == "premium" %}selected{% endif %} value="premium">PREMIUM</option>
+                <option {% if capability == "visitor" %}selected{% endif %} value="visitor">VISITOR</option>
+            </select>
+        </div>
+    </section>
+
+    <article class="p-3 d-flex flex-wrap border-bottom fw-semibold">
+        <p class="col-12 col-sm">Pseudo</p>
+        <p class="col-12 col-sm">Inscription</p>
+        <p class="col-12 col-sm">Capabilité</p>
+    </article>
+
+    <div data-loading="addClass(opacity-50)">
+        {% for user in computed.users %}
+            <article class="p-3 d-flex flex-wrap align-items-center {% if not loop.last %}border-bottom{% endif %}">
+                <p class="col-12 col-sm">{{ user.username }}</p>
+                <p class="col-12 col-sm">{{ user.createdAt|date('d/m/y') }}</p>
+                <p class="col-12 col-sm">
+                    <twig:ux:icon name="{{ icon_capability(user.capability) }}" class="icon bg-primary bg-opacity-10 p-2 text-primary rounded-circle" />
+                </p>
+            </article>
+            {% else %}
+            <p class="mt-3">Aucun utilisateur de trouvé</p>
+        {% endfor %}
+    </div>
+
+    <div class="mt-3">
+        {{ knp_pagination_render(computed.users) }}
+    </div>
+</div>

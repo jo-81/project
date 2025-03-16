@@ -49,6 +49,11 @@
                             isActive="{{ this.getCurrentRoute == 'app_register' }}"
                         />
                     {% endif %}
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <twig:Nav:NavLink label="Utilisateurs" path="{{ path('user.list') }}"
+                            isActive="{{ this.getCurrentRoute == 'user.list' }}" />
+                    {% endif %}
                 </ul>
             </div>
         </div>

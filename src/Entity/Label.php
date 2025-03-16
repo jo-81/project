@@ -22,7 +22,7 @@ class Label
     private ?string $color = null;
 
     #[ORM\ManyToOne(inversedBy: 'labels')]
-    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Project $project = null;
 
     /**

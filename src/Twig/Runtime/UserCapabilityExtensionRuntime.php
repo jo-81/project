@@ -17,10 +17,15 @@ class UserCapabilityExtensionRuntime implements RuntimeExtensionInterface
             return sprintf('Vous êtes limité à %s projets.', $capability->getProjectLimit());
         }
 
-        if ('vip' == $capability->value) {
+        if ('visitor' == $capability->value) {
             return sprintf('Vous êtes limité à %s projets.', $capability->getProjectLimit());
         }
 
         return '';
+    }
+
+    public function doIconCapability(Capability $capability): string
+    {
+        return $capability->getIcon();
     }
 }

@@ -30,7 +30,7 @@ class Section
     private ?int $position = null;
 
     #[ORM\ManyToOne(inversedBy: 'sections')]
-    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Project $project = null;
 
     /**

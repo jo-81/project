@@ -86,13 +86,15 @@ final class ProfileController extends AbstractController
     public function remove(Request $request): Response
     {
         $user = $this->getUser();
-        if (! $user) {
+        if (!$user) {
             $this->addFlash('danger', 'Authentification requise');
+
             return $this->redirectToRoute('login');
         }
 
-        if (! $this->isCsrfTokenValid('remove-user', $request->request->get('_token'))) {
+        if (!$this->isCsrfTokenValid('remove-user', $request->request->get('_token'))) {
             $this->addFlash('danger', 'Jeton CSRF invalide');
+
             return $this->redirectToRoute('profile');
         }
 
@@ -102,12 +104,12 @@ final class ProfileController extends AbstractController
             $request->getSession()->invalidate();
 
             $this->addFlash('success', 'Compte supprimé avec succès');
+
             return $this->redirectToRoute('homepage');
-            
         } catch (EntityNotFoundException $e) {
             $this->addFlash('danger', 'Utilisateur introuvable');
         } catch (\Exception $e) {
-            $this->addFlash('danger', 'Erreur technique : ' . $e->getMessage());
+            $this->addFlash('danger', 'Erreur technique : '.$e->getMessage());
         }
 
         return $this->redirectToRoute('profile');

@@ -27,7 +27,7 @@ class Activity
     private array $context = [];
 
     #[ORM\ManyToOne(inversedBy: 'activities')]
-    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?User $owner = null;
 
     #[ORM\Column(length: 255)]
