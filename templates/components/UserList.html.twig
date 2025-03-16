@@ -5,6 +5,8 @@
         <span>Utilisateurs ( {{ computed.users.getTotalItemCount }} )</span>
     </h2>
 
+    {% include "partials/_alert.html.twig" %}
+
     <section class="mb-3 d-flex flex-wrap gap-2">
         <div class="col-12 col-sm col-lg-12 col-xl">
             <input type="search" data-model="query" class="form-control" placeholder="Rechercher un utilisateur..." />
@@ -28,7 +30,9 @@
     <div data-loading="addClass(opacity-50)">
         {% for user in computed.users %}
             <article class="p-3 d-flex flex-wrap align-items-center {% if not loop.last %}border-bottom{% endif %}">
-                <p class="col-12 col-sm">{{ user.username }}</p>
+                <p class="col-12 col-sm">
+                    <a href="{{ path('user.single', {id: user.id}) }}">{{ user.username }}</a>
+                </p>
                 <p class="col-12 col-sm">{{ user.createdAt|date('d/m/y') }}</p>
                 <p class="col-12 col-sm">
                     <twig:ux:icon name="{{ icon_capability(user.capability) }}" class="icon bg-primary bg-opacity-10 p-2 text-primary rounded-circle" />
