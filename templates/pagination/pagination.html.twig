@@ -6,11 +6,11 @@
                 <button 
                     class="page-link" 
                     data-action="live#action" 
-                    data-live-action-param="prevPage">Précédent</button>
+                    data-live-action-param="prevPage"><twig:ux:icon name="tabler:chevron-left" class="icon-pagination"/></button>
             </li>
         {% else %}
             <li class="page-item disabled">
-                <span class="page-link">Précédent</span>
+                <span class="page-link"><twig:ux:icon name="tabler:chevron-left" class="icon-pagination"/></span>
             </li>
         {% endif %}
 
@@ -33,11 +33,11 @@
         {% if next is defined %}
             <li class="page-item">
                 <button class="page-link" data-action="live#action" 
-                    data-live-action-param="nextPage">Suivant</button>
+                    data-live-action-param="nextPage"><twig:ux:icon name="tabler:chevron-right" class="icon-pagination" /></button>
             </li>
         {% else %}
             <li class="page-item disabled">
-                <span class="page-link">Suivant</span>
+                <span class="page-link"><twig:ux:icon name="tabler:chevron-right" class="icon-pagination" /></span>
             </li>
         {% endif %}
     </ul>

@@ -12,6 +12,7 @@ class UserCapabilityExtension extends AbstractExtension
     {
         return [
             new TwigFunction('user_capability', [UserCapabilityExtensionRuntime::class, 'doUserCapability']),
+            new TwigFunction('icon_capability', [UserCapabilityExtensionRuntime::class, 'doIconCapability']),
         ];
     }
 }

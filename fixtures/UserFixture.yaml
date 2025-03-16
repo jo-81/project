@@ -19,3 +19,9 @@ App\Entity\User:
     password: \$2y\$10\$fYAcdEvTim793ozPnqs9jONL0dak9fclbHvNMVLHV6U3BTwr.4XDu
     roles: "[ROLE_REGISTER]"
     capability: <getCapability(visitor)>
+
+  user_{4..15}: 
+    username: <username()>
+    email: <email()>
+    password: \$2y\$10\$fYAcdEvTim793ozPnqs9jONL0dak9fclbHvNMVLHV6U3BTwr.4XDu
+    roles: "[ROLE_REGISTER]"

@@ -83,7 +83,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->capability = Capability::VISITOR;
-        $this->roles = ['ROLE_REGISTER'];
     }
 
     public function getId(): ?int

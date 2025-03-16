@@ -2,20 +2,12 @@
 
 namespace App\Tests\Controller;
 
-use App\Service\UserService;
 use App\Repository\UserRepository;
 use App\Tests\Traits\UserLoginTrait;
-use App\Controller\ProfileController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class ProfileControllerTest extends WebTestCase
 {
@@ -38,11 +30,13 @@ class ProfileControllerTest extends WebTestCase
     {
         $container = $this->createMock(\Symfony\Component\DependencyInjection\ContainerInterface::class);
         $container->method('get')->willReturnCallback(function ($service) {
-            if ($service === 'security.token_storage') {
+            if ('security.token_storage' === $service) {
                 return $this->tokenStorage;
             }
+
             return null;
         });
+
         return $container;
     }
 
