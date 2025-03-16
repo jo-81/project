@@ -53,7 +53,7 @@ class Task
     private Collection $labels;
 
     #[ORM\ManyToOne(inversedBy: 'tasks')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Section $section = null;
 
     public function __construct()

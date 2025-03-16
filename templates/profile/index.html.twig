@@ -11,7 +11,14 @@
         </twig:block>
 
         <twig:block name="footer">
-            <p><a class="btn btn-outline-primary" href="{{ path('app_logout') }}">Déconnexion</a></p>
+            <p>
+                <a class="btn btn-outline-primary" href="{{ path('app_logout') }}">Déconnexion</a>
+                <button 
+                    class="btn btn-danger" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#removeProfilModal"
+                    >Suppression</button>
+            </p>
         </twig:block>
     </twig:HeaderPage>
 
@@ -71,5 +78,30 @@
             </div>
         </div>
     </section>
+
+    <div 
+        class="modal fade" 
+        id="removeProfilModal" 
+        tabindex="-1" 
+        aria-labelledby="removeProfilModalLabel" 
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="removeProfilModalLabel">Suppression</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <p class="mb-3">Confirmez-vous la suppression de votre compte ?</p>
+                    <form method="POST" action="{{ path('profile.remove') }}">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('remove-user') }}">
+                        <button type="submit" class="btn btn-primary">Oui</button>
+                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Non</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 {% endblock %}
