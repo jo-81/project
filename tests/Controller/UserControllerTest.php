@@ -11,39 +11,45 @@ final class UserControllerTest extends WebTestCase
 {
     use ReloadDatabaseTrait;
     use EntityTrait;
-    
+
     /**
-     * testIndexWhenUserNotLogged
+     * testIndexWhenUserNotLogged.
      *
-     * @return void
+     * @dataProvider getDatasForUserRoute
      */
-    public function testIndexWhenUserNotLogged(): void
+    public function testIndexWhenUserNotLogged(string $path): void
     {
         $client = static::createClient();
-        $client->request('GET', '/admin/users');
+        $client->request('GET', $path);
 
         self::assertResponseStatusCodeSame(302);
     }
-    
+
     /**
-     * testIndexWhenUserLoggedWithRoleNotAdmin
+     * testIndexWhenUserLoggedWithRoleNotAdmin.
      *
-     * @return void
+     * @dataProvider getDatasForUserRoute
      */
-    public function testIndexWhenUserLoggedWithRoleNotAdmin(): void
+    public function testIndexWhenUserLoggedWithRoleNotAdmin(string $path): void
     {
         $client = static::createClient();
         $user = $this->get(UserRepository::class, ['username' => 'username']);
         $client->loginUser($user);
-        $client->request('GET', '/admin/users');
+        $client->request('GET', $path);
 
         self::assertResponseStatusCodeSame(403);
     }
-    
+
+    public static function getDatasForUserRoute(): array
+    {
+        return [
+            ['/admin/users'],
+            ['/admin/users/1'],
+        ];
+    }
+
     /**
-     * testIndexWhenUserLoggedWithRoleAdmin
-     *
-     * @return void
+     * testIndexWhenUserLoggedWithRoleAdmin.
      */
     public function testIndexWhenUserLoggedWithRoleAdmin(): void
     {
@@ -53,5 +59,25 @@ final class UserControllerTest extends WebTestCase
         $client->request('GET', '/admin/users');
 
         self::assertResponseIsSuccessful();
+    }
+
+    public function testSingleUserWhenExist(): void
+    {
+        $client = static::createClient();
+        $user = $this->get(UserRepository::class, ['username' => 'admin']);
+        $client->loginUser($user);
+        $client->request('GET', '/admin/users/1');
+
+        self::assertResponseIsSuccessful();
+    }
+
+    public function testSingleUserWhenNotExist(): void
+    {
+        $client = static::createClient();
+        $user = $this->get(UserRepository::class, ['username' => 'admin']);
+        $client->loginUser($user);
+        $client->request('GET', '/admin/users/100');
+
+        self::assertResponseRedirects('/admin/users');
     }
 }
