@@ -20,6 +20,6 @@ final class LabelList
 
     public function getLabels()
     {
-        return $this->labelRepository->findAll(['project' => $this->project]);
+        return $this->labelRepository->findBy(['project' => $this->project]);
     }
 }

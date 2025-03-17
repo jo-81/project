@@ -89,3 +89,7 @@ $spacers: map-merge($spacers, $custom-spacers);
   width: 24px;
   height: 24px;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
