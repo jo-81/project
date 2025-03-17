@@ -1,11 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ project.name }}{% endblock %}
+{% block title %}{{ project.name }} | Projet{% endblock %}
 
 {% block body %}
 <section>
 
-    <twig:HeaderPage title="{{ project.name }}" />
+    <twig:HeaderPage title="{{ project.name }}">
+        <twig:block name="body">
+            {{ project.description }}
+        </twig:block>
+
+        <twig:block name="footer">
+            <twig:LabelList project="{{ project }}"/>
+        </twig:block>
+    </twig:HeaderPage>
 
     <section class="container">
         <div class="row g-2">

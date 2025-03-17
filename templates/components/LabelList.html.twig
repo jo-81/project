@@ -1,0 +1,8 @@
+<div{{ attributes.defaults({ class: 'mt-5' }) }}>
+    <h3 class="h6 mb-2 fw-semibold">Etiquettes ( {{ computed.labels|length }} )</h3>
+    <div class="d-flex flex-wrap gap-1 gap-md-2 align-items-center">
+        {% for label in computed.labels %}
+            <twig:LabelSingle label="{{ label }}" />
+        {% endfor %}
+    </div>
+</div>
