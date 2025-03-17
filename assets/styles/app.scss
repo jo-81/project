@@ -56,6 +56,10 @@ $list-group-border-width: 0;
 $modal-content-border-radius: 0;
 $modal-content-border-width: 0;
 
+/* BADGE */
+$badge-padding-y: .75em;
+$badge-padding-x: 1em;
+
 /* SPACERS */
 @import "../../vendor/twbs/bootstrap/scss/functions";
 @import "../../vendor/twbs/bootstrap/scss/variables";
