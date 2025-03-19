@@ -1,11 +1,11 @@
 <div{{ attributes.defaults({class: 'my-5'}) }}>
     <section class="container">
 
-        <section class="mb-3 d-flex gap-2 w-50">
-            <div class="col">
+        <section class="mb-3 d-flex flex-wrap gap-2">
+            <div class="col-12 col-sm col-lg-3">
                 <input type="search" data-model="query" class="form-control" placeholder="Rechercher un projet..." />
             </div>
-            <div class="col">
+            <div class="col-12 col-sm col-lg-3">
                 <select class="form-select" data-model="archived">
                     <option {% if archived == -1 %}selected{% endif %} value="-1">Afficher tous les projets</option>
                     <option {% if archived == 0 %}selected{% endif %} value="0">Afficher les projets non archivés</option>

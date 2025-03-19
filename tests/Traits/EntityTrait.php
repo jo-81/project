@@ -4,7 +4,7 @@ namespace App\Tests\Traits;
 
 trait EntityTrait
 {
-    public function get(string $repositoryName, array $criteria): ?object
+    public function getEntity(string $repositoryName, array $criteria): ?object
     {
         $repository = static::getContainer()->get($repositoryName);
 

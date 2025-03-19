@@ -33,7 +33,7 @@ final class UserControllerTest extends WebTestCase
     public function testIndexWhenUserLoggedWithRoleNotAdmin(string $path): void
     {
         $client = static::createClient();
-        $user = $this->get(UserRepository::class, ['username' => 'username']);
+        $user = $this->getEntity(UserRepository::class, ['username' => 'username']);
         $client->loginUser($user);
         $client->request('GET', $path);
 
@@ -54,7 +54,7 @@ final class UserControllerTest extends WebTestCase
     public function testIndexWhenUserLoggedWithRoleAdmin(): void
     {
         $client = static::createClient();
-        $user = $this->get(UserRepository::class, ['username' => 'admin']);
+        $user = $this->getEntity(UserRepository::class, ['username' => 'admin']);
         $client->loginUser($user);
         $client->request('GET', '/admin/users');
 
@@ -64,7 +64,7 @@ final class UserControllerTest extends WebTestCase
     public function testSingleUserWhenExist(): void
     {
         $client = static::createClient();
-        $user = $this->get(UserRepository::class, ['username' => 'admin']);
+        $user = $this->getEntity(UserRepository::class, ['username' => 'admin']);
         $client->loginUser($user);
         $client->request('GET', '/admin/users/1');
 
@@ -74,7 +74,7 @@ final class UserControllerTest extends WebTestCase
     public function testSingleUserWhenNotExist(): void
     {
         $client = static::createClient();
-        $user = $this->get(UserRepository::class, ['username' => 'admin']);
+        $user = $this->getEntity(UserRepository::class, ['username' => 'admin']);
         $client->loginUser($user);
         $client->request('GET', '/admin/users/100');
 

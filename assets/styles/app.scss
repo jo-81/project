@@ -93,3 +93,11 @@ $spacers: map-merge($spacers, $custom-spacers);
 .cursor-pointer {
   cursor: pointer;
 }
+
+.card-hover {
+  &:hover {
+    box-shadow: 0 .125rem .25rem rgba($black, .075);
+  }
+
+  transition: all 0.2s;
+}

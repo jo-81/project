@@ -7,10 +7,16 @@
     <twig:HeaderPage title="Mes projets">
         <twig:block name="body">
             <p>Nombre de projet : {{ number_project }}</p>
+            <div>
+                {{ user_capability(app.user) }}
+            </div>
         </twig:block>
 
+        
         <twig:block name="footer">
-            <p><a class="btn btn-primary" href="#">Ajouter</a></p>
+            {% if had_capability(app.user) %}
+                <p><a class="btn btn-primary" href="#">Ajouter</a></p>
+            {% endif %}
         </twig:block>
     </twig:HeaderPage>
 

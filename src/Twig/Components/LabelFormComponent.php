@@ -8,13 +8,11 @@ use App\Form\LabelType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Exception\ORMException;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 use Symfony\UX\LiveComponent\ComponentToolsTrait;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\ComponentWithFormTrait;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -50,7 +48,7 @@ final class LabelFormComponent extends AbstractController
 
         $label = $this->initialFormData;
         if (is_null($label)) {
-            return $this->redirectToRoute("project.single", ['id' => $this->project->getId()]);
+            return $this->redirectToRoute('project.single', ['id' => $this->project->getId()]);
         }
 
         try {
@@ -61,7 +59,7 @@ final class LabelFormComponent extends AbstractController
         }
         $this->addFlash('success', "L'étiquette a bien été supprimée.");
 
-        return $this->redirectToRoute("project.single", ['id' => $this->project->getId()]);
+        return $this->redirectToRoute('project.single', ['id' => $this->project->getId()]);
     }
 
     #[LiveAction]
@@ -77,7 +75,7 @@ final class LabelFormComponent extends AbstractController
             $label = $this->getForm()->getData();
             $label->setProject($this->project);
 
-            $message = is_null($label->getId()) ? "ajoutée" : "modifiée";
+            $message = is_null($label->getId()) ? 'ajoutée' : 'modifiée';
 
             $this->entityManager->persist($label);
             $this->entityManager->flush();
@@ -88,6 +86,6 @@ final class LabelFormComponent extends AbstractController
 
         $this->addFlash('success', "L'étiquette a bien été $message.");
 
-        return $this->redirectToRoute("project.single", ['id' => $this->project->getId()]);
+        return $this->redirectToRoute('project.single', ['id' => $this->project->getId()]);
     }
 }
