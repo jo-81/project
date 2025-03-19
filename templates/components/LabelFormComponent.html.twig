@@ -8,14 +8,23 @@
     })}}
         {{ form_row(form.name) }}
         {{ form_row(form.color) }}
-        <button 
-            class="btn btn-primary" 
-            type="submit">
-            <span data-loading="action(save)|show">
-                <div class="spinner-border spinner-border-sm" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-            </span> Envoyer
-        </button>
+        <div>
+            <button 
+                class="btn btn-primary" 
+                type="submit">
+                <span data-loading="action(save)|show">
+                    <div class="spinner-border spinner-border-sm" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </span> Envoyer
+            </button>
+
+            <button 
+                type="button"
+                class="btn btn-danger" 
+                data-action="live#action" 
+                data-live-action-param="remove"
+            >Supprimer</button>
+        </div>
     {{ form_end(form) }}
 </div>
