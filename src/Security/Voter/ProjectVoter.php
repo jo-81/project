@@ -17,11 +17,11 @@ final class ProjectVoter extends Voter
         // https://symfony.com/doc/current/security/voters.html
         return in_array($attribute, [self::EDIT]) && $subject instanceof Project;
     }
-    
+
     /**
-     * voteOnAttribute
+     * voteOnAttribute.
      *
-     * @param  Project $subject
+     * @param Project $subject
      */
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
@@ -35,6 +35,7 @@ final class ProjectVoter extends Voter
         switch ($attribute) {
             case self::EDIT:
                 return $subject->getOwner() == $user;
+
                 break;
         }
 

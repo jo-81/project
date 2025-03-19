@@ -76,13 +76,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->projects = new ArrayCollection();
         $this->activities = new ArrayCollection();
+        $this->capability = Capability::VISITOR;
     }
 
     #[ORM\PrePersist]
     public function setValuesWhenCreate(): void
     {
         $this->createdAt = new \DateTimeImmutable();
-        $this->capability = Capability::VISITOR;
     }
 
     public function getId(): ?int

@@ -28,8 +28,4 @@ final class Card
 
         return $numberTask;
     }
-
-    public function getNumberTaskCompleted()
-    {
-    }
 }

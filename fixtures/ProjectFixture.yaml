@@ -4,12 +4,12 @@ App\Entity\Project:
     description: "<text(200)>"
     owner: "@user_1"
 
-  project_{16..25}:
+  project_{16..21}:
     name: "<word(3, true)>"
     description: "<text(200)>"
     owner: "@user_2"
 
-  project_{26..28}:
+  project_{21..23}:
     name: "<word(3, true)>"
     description: "<text(200)>"
     owner: "@user_3"

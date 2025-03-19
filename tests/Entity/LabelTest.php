@@ -24,7 +24,7 @@ class LabelTest extends KernelTestCase
     {
         self::$validator = static::getContainer()->get('validator');
 
-        $project = $this->get(ProjectRepository::class, ['id' => 1]);
+        $project = $this->getEntity(ProjectRepository::class, ['id' => 1]);
 
         $this->label = (new Label())
             ->setName('labelName')
