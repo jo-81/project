@@ -1,21 +1,27 @@
-<div{{ attributes.defaults({ class: 'mt-5' }) }}>
-    <h3 class="h6 mb-2 fw-semibold">Etiquettes ( {{ computed.labels|length }} )</h3>
+<div{{ attributes.defaults({ class: 'mt-5 position-relative' }) }}>
 
-    <div class="d-flex flex-wrap gap-1 gap-md-2 align-items-center">
-        <span 
-            class="badge bg-primary bg-opacity-10 text-primary cursor-pointer" 
-            data-bs-toggle="modal" 
-            data-bs-target="#labelAdd">
-            <twig:ux:icon name="tabler:plus" style="height: 10px; width: auto"/>
-        </span>
-        {% for label in computed.labels %}
-            <twig:LabelSingle label="{{ label }}" />
-        {% endfor %}
+    <h3 class="h6 mb-2 fw-semibold">Etiquettes ( {{ project.labels|length }} )</h3>
+
+    <div id="accordion">
+        <div class="d-flex flex-wrap gap-1 gap-md-2 align-items-start">
+            <div class="position-relative">
+                <span
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#labelRegister" 
+                    aria-expanded="false" 
+                    aria-controls="labelRegister"
+                    class="badge border border-primary text-primary cursor-pointer">
+                    <twig:ux:icon name="tabler:plus" style="height: 10px; width: auto"/>
+                </span>
+                <twig:CollapseComponent class="position-absolute z-3" id="labelRegister">
+                    <twig:LabelFormComponent project="{{ project }}" />
+                </twig:CollapseComponent>
+            </div>
+            
+            {% for label in project.labels %}
+                <twig:LabelSingle key="{{ label.id }}" project="{{ project }}" label="{{ label }}" />
+            {% endfor %}
+        </div>
     </div>
-
-    <twig:ModalComponent title="Ajouter un label" id="labelAdd">
-        <twig:block name="body">
-            <twig:LabelFormComponent project="{{ project }}"/>
-        </twig:block>
-    </twig:ModalComponent>
 </div>

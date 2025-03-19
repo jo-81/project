@@ -1,6 +1,13 @@
-<div{{ attributes }}>
+<div{{ attributes.defaults({class: 'position-relative'}) }}>
     <span 
-        class="badge" 
+        data-bs-target="#labelEdit-{{ label.id }}"
+        data-bs-toggle="collapse"
+        class="badge cursor-pointer" 
         style="background: {{ label.color }}15; color: {{ label.color }}"
-        >{{ label.name }}</span>
+        >{{ label.name }}
+    </span>
+
+    <twig:CollapseComponent class="position-absolute z-3" id="labelEdit-{{ label.id }}">
+        <twig:LabelFormComponent project="{{ project }}" initialFormData="{{ label }}"/>
+    </twig:CollapseComponent>
 </div>

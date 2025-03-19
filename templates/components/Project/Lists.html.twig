@@ -14,7 +14,7 @@
             </div>
         </section>
 
-        <div class="row g-2" data-loading="addClass(opacity-50)">
+        <div class="row g-2">
             {% for project in computed.projects %}
                 <twig:Project:Card project="{{ project }}" key="{{ project.id }}"/>
                 {% else %}
