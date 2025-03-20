@@ -2,9 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Entity\Project;
-use App\Repository\ProjectRepository;
+use App\Service\ProjectService;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -14,23 +13,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[IsGranted('ROLE_USER')]
 final class ProjectController extends AbstractController
 {
-    public function __construct(private Security $security, private ProjectRepository $projectRepository)
+    public function __construct(private Security $security, private ProjectService $projectService)
     {
     }
 
-    #[Route('/projects', name: 'project.list', methods: ['GET'])]
+    #[Route('/projects', name: 'project.list', methods: ['GET', 'POST'])]
     public function index(): Response
     {
-        /** @var User */
-        $user = $this->security->getUser();
-
-        return $this->render('project/index.html.twig', [
-            'number_project' => count($user->getProjects()),
-        ]);
+        return $this->render('project/index.html.twig');
     }
 
     #[IsGranted('PROJECT_SHOW', 'project', 'Vous ne pouvez pas accéder à ce projet.')]
-    #[Route('/projects/{id}', name: 'project.single', methods: ['GET'])]
+    #[Route('/projects/{id}', name: 'project.single', methods: ['GET'], priority: 10)]
     public function show(Project $project): Response
     {
         return $this->render('project/show.html.twig', [

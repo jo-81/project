@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un projet{% endblock %}
+
+{% block body %}
+<section>
+    <twig:HeaderPage title="Ajouter un projet">
+        <twig:block name="body">
+            <div>
+                <p>Nombre de projet</p>
+                {{ user_capability(app.user) }}
+            </div>
+        </twig:block>
+        
+            <twig:block name="footer">
+                {% if had_capability(app.user) %}
+                    <turbo-frame id="project_register">
+                        <div class="col-12 col-xl-6">
+                            {{ form_start(form, {
+                                attr: {
+                                    class: 'card card-body'
+                                }
+                            }) }}
+                                {{ form_row(form.name) }}
+                                {{ form_row(form.description) }}
+                                <div>
+                                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </turbo-frame>
+                {% endif %}
+            </twig:block>
+    </twig:HeaderPage>
+
+    <twig:Project:Lists />
+</section>
+{% endblock %}

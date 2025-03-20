@@ -9,6 +9,7 @@ use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
+use Symfony\UX\LiveComponent\Attribute\LiveListener;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 
 #[AsLiveComponent]
@@ -30,6 +31,11 @@ final class Lists
         private ProjectRepository $projectRepository,
         private PaginatorInterface $paginator,
     ) {
+    }
+
+    #[LiveListener('project:created')]
+    public function onProjectRegister()
+    {
     }
 
     public function getProjects()
