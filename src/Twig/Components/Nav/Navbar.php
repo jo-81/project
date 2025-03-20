@@ -18,4 +18,9 @@ final class Navbar
     {
         return $this->request->getCurrentRequest()->get('_route');
     }
+
+    public function isRouteActive(string $path): bool
+    {
+        return preg_match('#'.$path.'#', $this->request->getCurrentRequest()->get('_route'));
+    }
 }

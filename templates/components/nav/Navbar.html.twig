@@ -18,20 +18,20 @@
                     <twig:Nav:NavLink 
                         label="Home" 
                         path="{{ path('homepage') }}" 
-                        isActive="{{ this.getCurrentRoute == 'homepage' }}"
+                        isActive="{{ this.isRouteActive('homepage') }}"
                     />
 
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         <twig:Nav:NavLink 
                             label="Projets" 
                             path="{{ path('project.list') }}" 
-                            isActive="{{ this.getCurrentRoute == 'project.list' }}"
+                            isActive="{{ this.isRouteActive('project') }}"
                         />
 
                         <twig:Nav:NavLink 
                             label="Profil" 
                             path="{{ path('profile') }}" 
-                            isActive="{{ this.getCurrentRoute == 'profile' }}"
+                            isActive="{{ this.isRouteActive('profile') }}"
                         />
                     {% endif %}
 
@@ -40,19 +40,19 @@
                         <twig:Nav:NavLink 
                             label="Connexion" 
                             path="{{ path('app_login') }}" 
-                            isActive="{{ this.getCurrentRoute == 'app_login' }}"
+                            isActive="{{ this.isRouteActive('app_login') }}"
                         />
 
                         <twig:Nav:NavLink 
                             label="Inscription" 
                             path="{{ path('app_register') }}" 
-                            isActive="{{ this.getCurrentRoute == 'app_register' }}"
+                            isActive="{{ this.isRouteActive('app_register') }}"
                         />
                     {% endif %}
 
                     {% if is_granted('ROLE_ADMIN') %}
                         <twig:Nav:NavLink label="Utilisateurs" path="{{ path('user.list') }}"
-                            isActive="{{ this.getCurrentRoute == 'user.list' }}" />
+                            isActive="{{ this.isRouteActive('user.list') }}" />
                     {% endif %}
                 </ul>
             </div>

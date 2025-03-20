@@ -6,7 +6,40 @@
 <section>
     <twig:HeaderPage title="{{ project.name }}">
         <twig:block name="body">
-            {{ project.description }}
+            <div class="mb-3">
+                <p>
+                    <twig:ux:icon name="tabler:clock" class="icon-sm text-secondary"/> 
+                    {{ project.createdAt|date('d/m/Y') }}
+                </p>
+                {% if project.archived %}
+                    <p>
+                        <twig:ux:icon name="tabler:archive" class="icon-sm text-secondary"/> 
+                        Projet Archivé
+                    </p>
+                {% endif %}
+            </div>
+
+            <p class="pb-2">
+                <a  class="" 
+                    data-bs-toggle="collapse" 
+                    href="#collapseContentProject" 
+                    role="button"
+                    aria-expanded="false" 
+                    aria-controls="collapseContentProject">Description
+                </a>
+            </p>
+            <div class="collapse show" id="collapseContentProject">
+                {% if project.description %}
+                    <div class="mb-3">
+                        {{ project.description|raw }}
+                    </div>
+                {% endif %}
+                
+                <div>
+                    <a href="#" class="btn btn-primary">Modifier</a>
+                    <a href="#" class="btn btn-danger">Supprimer</a>
+                </div>
+            </div>
         </twig:block>
 
         <twig:block name="footer">
@@ -14,9 +47,10 @@
         </twig:block>
     </twig:HeaderPage>
 
-    <section class="container">
+    <section class="container my-5">
         <div class="row g-2">
             {% for section in project.sections %}
+
             <div class="col-12">
                 <article class="card card-body">
                     <header>
