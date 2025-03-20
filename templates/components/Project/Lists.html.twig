@@ -1,6 +1,30 @@
-<div{{ attributes.defaults({class: 'my-5'}) }}>
-    <section class="container">
+<div{{ attributes }}>
 
+    <twig:HeaderPage title="Mes projets" number="{{ computed.projects.totalItemCount }}">
+        <twig:block name="body">
+            <div>
+                <p>Nombre de projet : {{ number }}</p>
+                {{ user_capability(app.user) }}
+            </div>
+
+        </twig:block>
+        
+        <twig:block name="footer">
+            {% if is_granted("CAN_ADD_PROJECT", app.user) %}
+                <p>
+                    <a class="btn btn-outline-primary" href="#collapseRegisterProject" data-bs-toggle="collapse">
+                        <twig:ux:icon name="tabler:plus" class="icon-sm"/>
+                    </a>
+                </p>
+
+                <div class="collapse" id="collapseRegisterProject">
+                    <twig:ProjectFormTypeComponent />
+                </div>
+            {% endif %}
+        </twig:block>
+    </twig:HeaderPage>
+
+    <section class="container my-5">
         <section class="mb-3 d-flex flex-wrap gap-2">
             <div class="col-12 col-sm col-lg-3">
                 <input type="search" data-model="query" class="form-control" placeholder="Rechercher un projet..." />

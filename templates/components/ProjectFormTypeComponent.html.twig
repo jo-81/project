@@ -1,0 +1,15 @@
+<div{{ attributes.defaults({ class: "mt-3 card card-body col-12 col-xl-6" }) }}>
+    {{ form_start(form, {
+        attr: {
+            'data-action': 'live#action:prevent',
+            'data-live-action-param': 'save',
+        }
+    }) }}
+        
+        {{ form_row(form.name) }}
+        {{ form_row(form.description) }}
+
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+
+    {{ form_end(form) }}
+</div>

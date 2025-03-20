@@ -9,7 +9,7 @@ App\Entity\Project:
     description: "<text(200)>"
     owner: "@user_2"
 
-  project_{21..23}:
+  project_{21..25}:
     name: "<word(3, true)>"
     description: "<text(200)>"
     owner: "@user_3"

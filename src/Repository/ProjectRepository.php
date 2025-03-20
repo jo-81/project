@@ -22,6 +22,7 @@ class ProjectRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('p')
             ->andWhere('p.owner = :owner')
             ->setParameter('owner', $owner)
+            ->orderBy('p.createdAt', 'DESC')
         ;
 
         if (-1 != $archived) {
