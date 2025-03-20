@@ -21,11 +21,24 @@ class ProjectControllerTest extends WebTestCase
         $this->client = static::createClient();
     }
 
-    public function testAccessPageWhenUserNotLogged(): void
+    /**
+     * testAccessPageWhenUserNotLogged.
+     *
+     * @dataProvider getDataForAccessPageWhenUserNotLogged
+     */
+    public function testAccessPageWhenUserNotLogged(string $path): void
     {
-        $this->client->request('GET', '/projects');
+        $this->client->request('GET', $path);
 
         self::assertResponseRedirects('/connexion');
+    }
+
+    public function getDataForAccessPageWhenUserNotLogged(): array
+    {
+        return [
+            ['/projects'],
+            ['/projects/1'],
+        ];
     }
 
     /**
@@ -38,6 +51,18 @@ class ProjectControllerTest extends WebTestCase
         $this->client->request('GET', '/projects');
 
         self::assertResponseIsSuccessful();
+    }
+
+    public function testAccessPageProjectWhenUserNotOwner(): void
+    {
+        $user = $this->getEntity(UserRepository::class, ['id' => 1]);
+        $this->client->loginUser($user);
+
+        $this->client->request('GET', '/projects/1');
+        self::assertResponseIsSuccessful();
+
+        $this->client->request('GET', '/projects/17');
+        self::assertResponseStatusCodeSame(403);
     }
 
     public function testRenderCapabilityUserWithCapabilityVip(): void

@@ -11,11 +11,13 @@ final class ProjectVoter extends Voter
 {
     public const EDIT = 'PROJECT_EDIT';
 
+    public const SHOW = 'PROJECT_SHOW';
+
     protected function supports(string $attribute, mixed $subject): bool
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, [self::EDIT]) && $subject instanceof Project;
+        return in_array($attribute, [self::EDIT, self::SHOW]) && $subject instanceof Project;
     }
 
     /**
@@ -34,6 +36,11 @@ final class ProjectVoter extends Voter
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
             case self::EDIT:
+                return $subject->getOwner() == $user;
+
+                break;
+
+            case self::SHOW:
                 return $subject->getOwner() == $user;
 
                 break;

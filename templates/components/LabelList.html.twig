@@ -1,8 +1,7 @@
-<div{{ attributes.defaults({ class: 'mt-5 position-relative' }) }}>
+<div{{ attributes.defaults({ class: 'mt-4 position-relative' }) }}>
 
     <h3 class="h6 mb-2 fw-semibold">Etiquettes ( {{ project.labels|length }} )</h3>
 
-    {# <turbo-stream action="replace" targets="#accordion"> #}
         <div id="accordion">
             <div class="d-flex flex-wrap gap-1 gap-md-2 align-items-start">
                 <div class="position-relative">
@@ -25,5 +24,4 @@
                 {% endfor %}
             </div>
         </div>
-    {# </turbo-stream> #}
 </div>
