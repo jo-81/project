@@ -2,14 +2,14 @@
     {{ form_start(form, {
         attr: {
             'data-action': 'live#action:prevent',
-            'data-live-action-param': 'save',
+            'data-live-action-param': methodName,
         }
     }) }}
         
         {{ form_row(form.name) }}
         {{ form_row(form.description) }}
 
-        <button type="submit" class="btn btn-primary">Ajouter</button>
+        <button type="submit" class="btn btn-primary">{{ actionName }}</button>
 
     {{ form_end(form) }}
 </div>

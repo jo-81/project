@@ -24,7 +24,7 @@ final class ProjectController extends AbstractController
     }
 
     #[IsGranted('PROJECT_SHOW', 'project', 'Vous ne pouvez pas accéder à ce projet.')]
-    #[Route('/projects/{id}', name: 'project.single', methods: ['GET'], priority: 10)]
+    #[Route('/projects/{id}', name: 'project.single', methods: ['GET', 'POST'])]
     public function show(Project $project): Response
     {
         return $this->render('project/show.html.twig', [

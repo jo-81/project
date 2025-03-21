@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\Project;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use App\Form\DataTransformer\ParagraphDataTransformer;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -20,9 +19,11 @@ class ProjectFormType extends AbstractType
             ])
             ->add('description', TextareaType::class, [
                 'required' => false,
+                'attr' => [
+                    'rows' => 7,
+                    // 'data-controller' => 'editor',
+                ],
             ])
-            ->get('description')
-            ->addModelTransformer(new ParagraphDataTransformer())
         ;
     }
 
