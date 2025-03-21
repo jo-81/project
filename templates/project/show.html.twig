@@ -39,7 +39,8 @@
                 
             <div>
                 <a href="#collapseEditProject" data-bs-toggle="collapse" class="btn btn-outline-primary">Modifier</a>
-                <a href="#" class="btn btn-danger">Supprimer</a>
+                <a  data-bs-toggle="modal" 
+                    href="#removeProjectlModal" class="btn btn-danger">Supprimer</a>
             </div>
 
             <div class="collapse" id="collapseEditProject">
@@ -79,5 +80,30 @@
             {% endfor %}
         </div>
     </section>
+
+    <div 
+        class="modal fade" 
+        id="removeProjectlModal" 
+        tabindex="-1" 
+        aria-labelledby="removeProjectlModalLabel" 
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="removeProjectlModalLabel">Suppression</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <p class="mb-3">Confirmez-vous la suppression de votre projet ?</p>
+                    <form method="POST" action="{{ path('project.remove', {id: project.id}) }}">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('remove-project') }}">
+                        <button type="submit" class="btn btn-primary">Oui</button>
+                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Non</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 {% endblock %}

@@ -20,4 +20,10 @@ class ProjectService
         $this->em->persist($project);
         $this->em->flush();
     }
+
+    public function remove(Project $project): void
+    {
+        $this->em->remove($project);
+        $this->em->flush();
+    }
 }

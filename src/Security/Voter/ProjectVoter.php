@@ -13,11 +13,13 @@ final class ProjectVoter extends Voter
 
     public const SHOW = 'PROJECT_SHOW';
 
+    public const REMOVE = 'PROJECT_REMOVE';
+
     protected function supports(string $attribute, mixed $subject): bool
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, [self::EDIT, self::SHOW]) && $subject instanceof Project;
+        return in_array($attribute, [self::EDIT, self::SHOW, self::REMOVE]) && $subject instanceof Project;
     }
 
     /**
@@ -41,6 +43,11 @@ final class ProjectVoter extends Voter
                 break;
 
             case self::SHOW:
+                return $subject->getOwner() == $user;
+
+                break;
+
+            case self::REMOVE:
                 return $subject->getOwner() == $user;
 
                 break;
