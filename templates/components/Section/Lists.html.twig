@@ -1,0 +1,33 @@
+<div{{ attributes }}>
+    <section class="card card-body mb-3">
+        <header class="d-flex justify-content-between align-items-center">
+            <h2 class="h6 text-uppercase mb-0">Section</h2>
+            <a href="#" class="btn btn-primary">
+                <twig:ux:icon name="tabler:plus" class="icon-sm"/>
+            </a>
+        </header>
+
+        {% if this.sections %}
+        <div class="row g-2">
+            <div class="col-12 col-md-6 col-xl-3">
+                <input name="query" id="query" type="search" data-model="debounce(300)|query" class="form-control" placeholder="Rechercher une section...">
+            </div>
+
+            <div class="col-12 col-md-6 col-xl-3">
+                <select name="displaySection" id="displaySection" class="form-select" data-model="debounce(300)|displaySection">
+                    <option value="0">Afficher toutes les sections</option>
+                    {% for section in this.sections %}
+                        <option value="{{ section.id }}">{{ section.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        {% endif %}
+    </section>
+
+    <div class="row gap-2" data-loading="addClass(opacity-50)">
+        {% for section in this.sections %}
+            <twig:Section:Card key="section-{{ section.id }}" section="{{ section }}" />
+        {% endfor %}
+    </div>
+</div>

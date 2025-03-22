@@ -1,0 +1,61 @@
+<section {{ attributes }}>
+    <div class="row g-1 mb-2">
+        <div class="col-12 col-md-6 col-xl">
+            <input 
+                name="query-{{ section.id }}"
+                id="query-{{ section.id }}"
+                type="search" 
+                data-model="query" 
+                class="form-control" 
+                placeholder="Rechercher une tâche" 
+            />
+        </div>
+
+        <div class="col-12 col-md-6 col-xl">
+            <select name="status-{{ section.id }}"
+                    id="status-{{ section.id }}" 
+                    class="form-select" 
+                    data-model="status">
+                <option value="">Tous les status</option>
+                {% for case in enum('App\\Enum\\Status').cases %}
+                    <option value="{{ case.value }}">{{ case.name|trans|capitalize }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-12 col-md-6 col-xl">
+            <select 
+                name="priority-{{ section.id }}"
+                id="priority-{{ section.id }}" 
+                class="form-select" 
+                data-model="priority"
+            >
+                <option value="">Toutes les priorités</option>
+                {% for case in enum('App\\Enum\\Priority').cases %}
+                <option value="{{ case.value }}">{{ case.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-12 col-md-6 col-xl">
+            <select
+                name="archived-{{ section.id }}"
+                id="archived-{{ section.id }}" 
+                class="form-select" 
+                data-model="archived"
+            >
+                <option value="-1">Toutes les tâches</option>
+                <option value="1">Les tâches archivés</option>
+                <option value="0">Les tâches non archivés</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row g-1" data-loading="addClass(opacity-50)">
+    {% for task in this.tasks %}
+        <twig:Task:Card key="task-{{ task.id }}" task="{{ task }}"/>
+        {% else %}
+        <p>Aucune tâche de trouvée.</p>
+    {% endfor %}
+    </div>
+</section>

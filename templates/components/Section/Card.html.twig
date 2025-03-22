@@ -1,0 +1,27 @@
+<div{{ attributes.defaults({ class: 'col-12' }) }}>
+    <article class="card card-body bg-secondary bg-opacity-10 accordion">
+        <div class="accordion-item">
+            <header class="accordion-header">
+                <button 
+                    class="accordion-button" 
+                    type="button" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#collapseSection-{{ section.id }}" 
+                    aria-expanded="true" 
+                    aria-controls="collapseSection-{{ section.id }}">
+                    <h3 class="h6 mb-0 fw-semibold text-capitalize">
+                        {{ section.name }} ( {{ section.tasks|length }} )
+                    </h3>
+                </button>
+            </header>
+
+            {% if section.description %}
+                <div class="mb-3">{{ section.description }}</div>
+            {% endif %}
+
+            <div id="collapseSection-{{ section.id }}" class="row accordion-collapse collapse show">
+                <twig:Task:Lists section="{{ section }}"/>
+            </div>
+        </div>
+    </article>
+</div>

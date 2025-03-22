@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Project;
 use App\Entity\Section;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -14,6 +15,30 @@ class SectionRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Section::class);
+    }
+
+    public function filterListSections(Project $project, string $query, int $displaySection)
+    {
+        $qb = $this->createQueryBuilder('s')
+            ->andWhere('s.project = :project')
+            ->setParameter('project', $project)
+        ;
+
+        if (! empty($query)) {
+            $qb
+                ->andWhere('s.name LIKE :query')
+                ->setParameter('query', '%'.$query.'%')
+            ;
+        }
+
+        if (! empty($displaySection)) {
+            $qb
+                ->andWhere('s.id = :id')
+                ->setParameter('id', $displaySection)
+            ;
+        }
+
+        return $qb->getQuery()->getResult();
     }
 
     //    /**
