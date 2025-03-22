@@ -1,0 +1,37 @@
+<div{{ attributes.defaults({ class: "col-12" }) }}>
+    <article class="card card-body">
+        <header class="mb-3">    
+            <h4 class="h6 mb-0 fw-semibold">{{ task.name }}</h4>
+        </header>
+
+        {% if task.content %}
+            <div>
+                <p>{{ task.content }}</p>
+            </div>
+        {% endif %}
+
+        <footer class="pt-3 d-flex align-items-center gap-2">
+            <twig:Bootstrap:Badge title="{{ task.status.value|upper|trans|capitalize }}" type="{{ task.status.color }}">
+                <twig:ux:icon name="{{ task.status.icon }}" class="icon-sm" />
+            </twig:Bootstrap:Badge>
+            
+            <twig:Bootstrap:Badge title="{{ task.priority.value }}" type="{{ task.priority.color }}">
+                <span class="icon-sm d-inline-flex justify-content-center fw-bold">
+                    {{ task.priority.firstLetter }}
+                </span>
+            </twig:Bootstrap:Badge>
+
+            {% if task.dueAt %}
+                <twig:Bootstrap:Badge title="{{ task.dueAt|date('d/m/Y') }}" type="secondary">
+                    <twig:ux:icon name="tabler:calendar-week" class="icon-sm" />
+                </twig:Bootstrap:Badge>
+            {% endif %}
+
+            {% if task.archived %}
+                <twig:Bootstrap:Badge title="Archiver" type="danger">
+                    <twig:ux:icon name="tabler:archive" class="icon-sm" />
+                </twig:Bootstrap:Badge>
+            {% endif %}
+        </footer>
+    </article>
+</div>

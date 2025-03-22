@@ -59,6 +59,13 @@ $modal-content-border-width: 0;
 $badge-padding-y: .75em;
 $badge-padding-x: 1em;
 
+/* ACCORDION */
+$accordion-bg: transparent;
+$accordion-button-active-bg: transparent;
+$accordion-border-width: 0;
+$accordion-padding-x: 0;
+$accordion-body-padding-y: 0;
+
 /* SPACERS */
 @import "../../vendor/twbs/bootstrap/scss/functions";
 @import "../../vendor/twbs/bootstrap/scss/variables";
