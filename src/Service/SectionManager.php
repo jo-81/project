@@ -12,12 +12,18 @@ class SectionManager
     {
     }
 
-    public function register(Section $section)
+    public function register(Section $section): void
     {
         $position = $this->sectionRepository->findPosition($section->getProject());
         $section->setPosition($position);
 
         $this->em->persist($section);
+        $this->em->flush();
+    }
+
+    public function remove(Section $section): void
+    {
+        $this->em->remove($section);
         $this->em->flush();
     }
 }
