@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\SectionRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Entity(repositoryClass: SectionRepository::class)]
@@ -17,6 +18,7 @@ class Section
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank(message: "Ce champ ne peut pas être vide")]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 

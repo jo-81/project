@@ -41,6 +41,17 @@ class SectionRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findPosition(Project $project)
+    {
+        return $this->createQueryBuilder('s')
+            ->select('COUNT(s.id)')
+            ->andWhere('s.project = :project')
+            ->setParameter('project', $project)
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
+
     //    /**
     //     * @return Section[] Returns an array of Section objects
     //     */
