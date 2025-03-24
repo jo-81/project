@@ -20,8 +20,11 @@
             <div class="mb-3">
                 <p>
                     {{ section.description }}
-                    <a href="#modalSectionEdit-{{ section.id }}" data-bs-toggle="modal" data-bs-target="#">
+                    <a href="#modalSectionEdit-{{ section.id }}" data-bs-toggle="modal" class="text-decoration-none">
                         <twig:ux:icon name="tabler:edit" class="icon-sm" />
+                    </a>
+                    <a href="#modalSectionRemove-{{ section.id }}" data-bs-toggle="modal" class="text-decoration-none">
+                        <twig:ux:icon name="tabler:trash" class="icon-sm text-danger" />
                     </a>
                 </p>
             </div>
@@ -33,6 +36,18 @@
             <twig:Bootstrap:Modal title="Modifier la section" id="modalSectionEdit-{{ section.id }}">
                 <twig:block name="content">
                     <twig:Section:Form project="{{ project }}" initialFormData="{{ section }}" submitName="Modifier"/>
+                </twig:block>
+            </twig:Bootstrap:Modal>
+
+            <twig:Bootstrap:Modal title="Supprimer la section" id="modalSectionRemove-{{ section.id }}">
+                <twig:block name="content">
+                    <p class="mb-3">Confirmez-vous la suppression de votre projet ?</p>
+                    <form method="POST" action="{{ path('section.remove', {id: section.id}) }}">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('remove-section') }}">
+                        <button type="submit" class="btn btn-primary">Oui</button>
+                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Non</button>
+                    </form>
                 </twig:block>
             </twig:Bootstrap:Modal>
         </div>
