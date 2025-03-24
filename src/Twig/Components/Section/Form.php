@@ -29,6 +29,9 @@ final class Form extends AbstractController
     #[LiveProp(writable: true)]
     public ?Project $project = null;
 
+    #[LiveProp(writable: true)]
+    public string $submitName;
+
     public function __construct(private SectionManager $sectionManager)
     {
     }
@@ -49,12 +52,15 @@ final class Form extends AbstractController
 
         try {
             $section = $this->getForm()->getData();
-            $section->setProject($this->project);
+            if ($this->submitName == 'Ajouter') {
+                $section->setProject($this->project);
+            }
 
             $this->sectionManager->register($section);
 
+            $message = $this->submitName == 'Ajouter' ? 'ajoutée' : 'modifiée';
+            $this->addFlash('success', "L'étiquette a bien été $message.");
             $this->resetForm();
-            $this->addFlash('success', "L'étiquette a bien été ajouté.");
         } catch (ORMException $e) {
             $this->addFlash('danger', 'Un problème est survenue.');
         }

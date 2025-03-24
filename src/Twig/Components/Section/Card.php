@@ -2,6 +2,7 @@
 
 namespace App\Twig\Components\Section;
 
+use App\Entity\Project;
 use App\Entity\Section;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
@@ -16,4 +17,7 @@ final class Card
 
     #[LiveProp(writable: true)]
     public Section $section;
+
+    #[LiveProp(writable: true)]
+    public Project $project;
 }
