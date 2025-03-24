@@ -5,6 +5,7 @@ namespace App\Twig\Components\Section;
 use App\Entity\Project;
 use App\Repository\SectionRepository;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
+use Symfony\UX\LiveComponent\Attribute\LiveListener;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
@@ -38,4 +39,8 @@ final class Lists
     {
         return count($this->getSections());
     }
+
+    #[LiveListener('section:register')]
+    public function onRefreshSection()
+    {}
 }

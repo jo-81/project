@@ -1,8 +1,8 @@
 <div{{ attributes }}>
     <section class="card card-body mb-3">
         <header class="d-flex justify-content-between align-items-center">
-            <h2 class="h6 text-uppercase mb-0">Section</h2>
-            <a href="#" class="btn btn-primary">
+            <h2 class="h6 text-uppercase mb-0">Section ( {{ this.numberSection }} )</h2>
+            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalSectionRegister">
                 <twig:ux:icon name="tabler:plus" class="icon-sm"/>
             </a>
         </header>
@@ -30,4 +30,10 @@
             <twig:Section:Card key="section-{{ section.id }}" section="{{ section }}" />
         {% endfor %}
     </div>
+
+    <twig:Bootstrap:Modal title="Ajouter une section" id="modalSectionRegister">
+        <twig:block name="content">
+            <twig:Section:Form project="{{ project }}" />
+        </twig:block>
+    </twig:Bootstrap:Modal>
 </div>

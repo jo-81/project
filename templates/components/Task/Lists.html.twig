@@ -1,4 +1,5 @@
 <section {{ attributes }}>
+    {% if this.tasks %}
     <div class="row g-1 mb-2">
         <div class="col-12 col-md-6 col-xl">
             <input 
@@ -50,12 +51,11 @@
             </select>
         </div>
     </div>
+    {% endif %}
 
     <div class="row g-1" data-loading="addClass(opacity-50)">
     {% for task in this.tasks %}
         <twig:Task:Card key="task-{{ task.id }}" task="{{ task }}"/>
-        {% else %}
-        <p>Aucune tâche de trouvée.</p>
     {% endfor %}
     </div>
 </section>
