@@ -5,7 +5,6 @@ namespace App\Twig\Components\Section;
 use App\Entity\Project;
 use App\Repository\SectionRepository;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
-use Symfony\UX\LiveComponent\Attribute\LiveListener;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
@@ -26,7 +25,7 @@ final class Lists
     public function __construct(private SectionRepository $sectionRepository)
     {}
 
-    public function getSections()
+    public function getSections(): iterable
     {
         return $this->sectionRepository->filterListSections(
             $this->project, 
@@ -35,12 +34,13 @@ final class Lists
         );
     }
 
-    public function numberSection()
+    public function numberSection(): int
     {
         return count($this->getSections());
     }
 
-    #[LiveListener('section:register')]
-    public function onRefreshSection()
-    {}
+    public function getAllSections(): iterable
+    {
+        return $this->sectionRepository->findBy(['project' => $this->project]);
+    }
 }

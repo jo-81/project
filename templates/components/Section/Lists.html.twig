@@ -16,7 +16,7 @@
             <div class="col-12 col-md-6 col-xl-3">
                 <select name="displaySection" id="displaySection" class="form-select" data-model="debounce(300)|displaySection">
                     <option value="0">Afficher toutes les sections</option>
-                    {% for section in this.sections %}
+                    {% for section in this.allSections %}
                         <option value="{{ section.id }}">{{ section.name }}</option>
                     {% endfor %}
                 </select>
@@ -27,13 +27,13 @@
 
     <div class="row gap-2" data-loading="addClass(opacity-50)">
         {% for section in this.sections %}
-            <twig:Section:Card key="section-{{ section.id }}" section="{{ section }}" />
+            <twig:Section:Card project="{{ project }}" key="section-{{ section.id }}" section="{{ section }}" />
         {% endfor %}
     </div>
 
     <twig:Bootstrap:Modal title="Ajouter une section" id="modalSectionRegister">
         <twig:block name="content">
-            <twig:Section:Form project="{{ project }}" />
+            <twig:Section:Form submitName="Ajouter" project="{{ project }}" />
         </twig:block>
     </twig:Bootstrap:Modal>
 </div>
